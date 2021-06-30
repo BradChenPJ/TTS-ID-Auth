@@ -30,10 +30,10 @@ class Main(QMainWindow, ui.Ui_MainWindow, UUID.Ui_MainWindow):
         self.key = '+d=d5u6ebp&_0%1lt%0$!-qmw%ceal-49ere*^yaat&_u3-$d!'
     def send_email(self):
         try:
-            smtp = smtplib.SMTP(host="smtp.gmail.com", port="587")  # 設定SMTP伺服器
+            smtp = smtplib.SMTP(host="smtp.gmail.com", port="587")  # 設定SMTP伺服器smtp.gmail.com
             smtp.ehlo()  # 驗證SMTP伺服器
             smtp.starttls()  # 建立加密傳輸
-            smtp.login("2835jifu.6@gmail.com", "usdqgwhhqijlxjfn")  # 登入寄件者gmail
+            smtp.login("ticgroup0420@gmail.com", "uxplyvloezzjjxke")  # 登入寄件者gmail
             print("Complete!")
             self.emailSetting = smtp
         except Exception as e:
@@ -60,8 +60,8 @@ class Main(QMainWindow, ui.Ui_MainWindow, UUID.Ui_MainWindow):
             #email設定
             content = MIMEMultipart()
             content["subject"] = "全站儀轉換程式註冊"
-            content["from"] = "2835jifu.6@gmail.com"
-            content["to"] = "2835jifu.6@gmail.com"
+            content["from"] = "ticgroup0420@gmail.com"
+            content["to"] = "ticgroup0420@gmail.com"
             content.attach(MIMEText(emailContent))
             try:
                 self.emailSetting.send_message(content)
