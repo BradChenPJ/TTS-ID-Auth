@@ -13,6 +13,7 @@ from email.mime.text import MIMEText
 import smtplib
 import threading
 from loadFigure import FigureSet
+import uuid
 
 class Main(QMainWindow, ui.Ui_MainWindow, UUID.Ui_MainWindow):
     def __init__(self):
@@ -42,20 +43,22 @@ class Main(QMainWindow, ui.Ui_MainWindow, UUID.Ui_MainWindow):
         if self.company_edit.text() == '' or self.man_edit.text() == '' or self.contact_edit.text() == '':
             QMessageBox.warning(self, "提醒", "請填入完整資訊")
         else:
-            #取得UUID
-            cmd = 'wmic csproduct get UUID'
-            uuid = str(subprocess.check_output(cmd))
-            pos1 = uuid.find("\\n")+2
-            uuid = uuid[pos1:-15]
+            #取得UUID,原本的方式不用
+            #cmd = 'wmic csproduct get UUID'
+            #uuidfirst = str(subprocess.check_output(cmd))
+            #pos1 = uuidfirst.find("\\n")+2
+            #uuidfirst = uuidfirst[pos1:-15]
+            #if uuidfirst == "":
+            uuidfirst = str(uuid.uuid3(uuid.NAMESPACE_DNS, 'officeguide.cc'))
             #取得使用者輸入資訊
             companyName = self.company_edit.text()
             manName = self.man_edit.text()
             contactName = self.contact_edit.text()
-            emailContent = companyName +"\n"+ manName +"\n"+ contactName +"\n"+ uuid
+            emailContent = companyName +"\n"+ manName +"\n"+ contactName +"\n"+ uuidfirst
             #開啟UUIDwindow
             self.window = QtWidgets.QMainWindow()
             self.ui = UUID.Ui_MainWindow()
-            self.ui.setupUi(self.window, self.enctry(uuid,self.key))
+            self.ui.setupUi(self.window, self.enctry(uuidfirst,self.key))
             self.window.show()
             #email設定
             content = MIMEMultipart()
